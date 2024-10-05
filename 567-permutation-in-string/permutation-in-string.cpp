@@ -1,29 +1,5 @@
 class Solution {
 public:
-bool checkInclusion(string s1, string s2) {
-        bool ans = false;
-        if(s1.length() > s2.length()) return false;
-        int n = s1.length();
-        string s3;
-        for(int i = 0; i < n;i++){
-            s3.push_back(s2[i]);
-        }
-        for(int i = 0; i < (s2.length() - n);i++){
-            if(isPermutation(s1,s3)){
-                ans = true;
-                break;
-            }else{
-                s3.erase(0,1);
-                s3.push_back(s2[n+i]);
-            }
-        }
-
-        if(isPermutation(s1,s3)) ans = true;
-        
-        return ans;
-        
-    }
-private:
     bool isPermutation(string s1, string s2){
         ios_base::sync_with_stdio(false);
         cin.tie(nullptr);
@@ -47,5 +23,27 @@ private:
         }
         return ans;
     }
-    
+    bool checkInclusion(string s1, string s2) {
+        bool ans = false;
+        if(s1.length() > s2.length()) return false;
+        int n = s1.length();
+        string s3;
+        for(int i = 0; i < n;i++){
+            s3.push_back(s2[i]);
+        }
+        for(int i = 0; i < (s2.length() - n);i++){
+            if(isPermutation(s1,s3)){
+                ans = true;
+                break;
+            }else{
+                s3.erase(0,1);
+                s3.push_back(s2[n+i]);
+            }
+        }
+
+        if(isPermutation(s1,s3)) ans = true;
+        
+        return ans;
+        
+    }
 };
