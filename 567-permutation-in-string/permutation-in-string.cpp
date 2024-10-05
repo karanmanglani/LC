@@ -1,49 +1,31 @@
 class Solution {
 public:
-    bool isPermutation(string s1, string s2){
-        ios_base::sync_with_stdio(false);
-        cin.tie(nullptr);
-        cout.tie(nullptr);
-        bool ans= true;
-        vector<int> cnt1(26,0);
-        vector<int> cnt2(26,0);
-        for(char ch: s1){
-            int index = ch - 97;
-            cnt1[index]++;
-        }
-        for(char ch: s2){
-            int index = ch - 97;
-            cnt2[index]++;
-        }
-        for(int i = 0; i<26; i++){
-            if(cnt1[i] != cnt2[i]){
-                ans = false;
-                break;
+ bool allZero(int *arr){
+        for(int i=0;i<26;i++){
+            if(arr[i]!=0){
+                return false;
             }
         }
-        return ans;
+        return true;
     }
     bool checkInclusion(string s1, string s2) {
-        bool ans = false;
-        if(s1.length() > s2.length()) return false;
-        int n = s1.length();
-        string s3;
-        for(int i = 0; i < n;i++){
-            s3.push_back(s2[i]);
+         if(s2.length()<s1.length()){
+            return false;
         }
-        for(int i = 0; i < (s2.length() - n);i++){
-            if(isPermutation(s1,s3)){
-                ans = true;
-                break;
-            }else{
-                s3.erase(0,1);
-                s3.push_back(s2[n+i]);
+        int arr[26] = {0};
+        for(int i=0;i<s1.length();i++){
+            arr[s1[i]-'a']++;
+        }
+        int len = s1.length();
+        for(int i=0;i<s2.length();i++){
+            arr[s2[i]-'a']--;
+            if(i-len>=0){
+               arr[s2[i-len]-'a']++;
+            }
+            if(allZero(arr)) {
+                return true;
             }
         }
-
-        if(isPermutation(s1,s3)) ans = true;
-        
-        return ans;
-        
+        return false;
     }
 };
