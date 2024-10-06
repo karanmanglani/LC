@@ -12,6 +12,9 @@
 class Solution {
 public:
     bool isSymmetric(TreeNode* root) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(nullptr);
+        cout.tie(nullptr);
         if(root == NULL) return true;
         bool ans = true;
         map<int,vector<int>> mp; // For level wise storing of the data
