@@ -3,7 +3,7 @@ public:
     int mySqrt(int x) {
         int s = 0, e = x;
         long long int  ans = x;
-        while(s <= e){
+        while(e - s>=0){
             long long int mid = s + (e-s)/2;
             if(mid * mid <= x){
                 ans = mid;
