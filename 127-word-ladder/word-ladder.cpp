@@ -7,6 +7,7 @@ public:
 
         set<string> st;
         for(auto i : lst)st.insert(i);
+        if(st.find(t) == st.end()) return 0;
         queue<pair<string,int>> q;
         q.push({s,1});
         int ans = 0;
