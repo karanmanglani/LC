@@ -5,7 +5,7 @@ public:
         cin.tie(nullptr);
         cout.tie(nullptr);
 
-        set<string> st;
+        unordered_set<string> st;
         for(auto i : lst)st.insert(i);
         if(st.find(t) == st.end()) return 0;
         queue<pair<string,int>> q;
