@@ -1,36 +1,32 @@
+typedef long long int lli;
 class Solution {
 public:
-    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k){
-        vector<vector<pair<int, int>>> adj(n);
-        for(int i=0; i<flights.size(); i++){
-            adj[flights[i][0]].push_back({flights[i][1], flights[i][2]});
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        cin.tie(0) -> sync_with_stdio(0);
+        vector<vector<pair<lli,lli>>> adj(n);
+        for(auto i : flights){
+            adj[i[0]].push_back({i[1],i[2]});
         }
-       // {price, {node, level}}
-        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> pq;
-        vector<vector<int>> fare(n, vector<int>(k+2, 1e9));
-        pq.push({0, {src, 0}});
-        fare[src][0]=0;
-        while(!pq.empty()){
-            auto[pr, nl] = pq.top();
-            auto[node, level] = nl;
-            pq.pop();
-            for(auto it:adj[node]){
-                int nxt = it.first;
-                int newlevel = level+1;
-                int newpr = pr+it.second;
-                if(newlevel<k+2 && nxt<n && fare[nxt][newlevel]>newpr){
-                    fare[nxt][newlevel]=newpr;
-                    pq.push({newpr, {nxt, newlevel}});
+        set<pair<lli,pair<lli,lli>>> st;
+        vector<vector<lli>> p(n,vector(n+2,LLONG_MAX));
+        p[src][0] = 0;
+        st.insert({0,{src,0}});
+        while(st.size() > 0){
+            auto it = *(st.begin());
+            lli cpr = it.first;
+            lli curr = it.second.first;
+            lli stp = it.second.second;
+            st.erase(it);
+            if(stp >= k+1) continue;
+            for(auto i : adj[curr]){
+                if(p[i.first][stp+1] > cpr + i.second){
+                    p[i.first][stp+1] = cpr + i.second;
+                    st.insert({p[i.first][stp+1],{i.first,stp+1}});
                 }
-                
             }
         }
-        int ans =1e9;
-        for(int i=0; i<=k+1; i++){
-            ans = min(ans, fare[dst][i]);
-        }
-        if(ans == 1e9) return -1;
-        return ans;
-
+        lli ans = LLONG_MAX;
+        for(auto i : p[dst]) ans = min(ans,i);
+        return (ans != LLONG_MAX) ? ans : -1;
     }
 };
