@@ -1,33 +1,25 @@
 class Solution {
 public:
-
-    int solve(vector<int> nums){
-        int n = nums.size();
-        if(n == 1) return nums[0];
-        if(n == 2) return max(nums[0],nums[1]);
-        int three = nums[n-1], two = nums[n-2],one = nums[n-3] + nums[n-1];
-        if(n == 3){
-            return max(one , max(two , three));
-        }
-
-        for(int i = n-4; i > 0; i--){
-            int curr = nums[i] + max(two, three);
-            three = two;
-            two = one;
-            one = curr;
-        }
-
-        return max(one , nums[0] + max(two, three));
-    }
-
     int rob(vector<int>& nums) {
+        cin.tie(0) -> sync_with_stdio(0);
+        if(nums.size() <= 3) return *max_element(nums.begin(),nums.end());
+        vector<int> a,b;
         int n = nums.size();
-        if(n == 1) return nums[0];
-        vector<int> a(nums.begin(),nums.end() -1);
-        vector<int> b(nums.begin() + 1, nums.end());
-
-        int c = solve(a);
-        int d = solve(b);
-        return max(c , d);
+        for(int i = 1;i < n;i++) a.push_back(nums[i]);
+        for(int i = 0;i < n - 1;i++) b.push_back(nums[i]);
+        int c = a[0], d = max(a[0], a[1]);
+        int ans = INT_MIN,anss = INT_MIN;
+        for(int i = 2;i < a.size();i++){
+            ans = max(d, a[i] + c);
+            if(c > d) d = c;
+            c = d; d = ans;
+        }
+        c = b[0];d = max(b[0],b[1]);
+        for(int i = 2;i < b.size();i++){
+            anss = max(d, b[i] + c);
+            if(c > d) d = c;
+            c = d; d = anss;
+        }
+        return max(ans,anss);
     }
 };
