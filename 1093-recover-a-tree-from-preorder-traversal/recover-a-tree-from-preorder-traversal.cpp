@@ -13,27 +13,26 @@ class Solution {
 public:
     TreeNode* recoverFromPreorder(string traversal) {
         cin.tie(0) -> sync_with_stdio(0);
+        vector<TreeNode*> el(1001);
         int val = traversal[0] - '0';
         int i = 1,n = traversal.size();
-        while(i < n and traversal[i] != '-') val = val * 10 + traversal[i++] - '0';
+        while(i < n and traversal[i] != '-') val = val*10 + traversal[i++] - '0';
         TreeNode* root = new TreeNode(val);
-        stack<TreeNode*> st;
-        st.push(root);
+        el[0] = root;
         int d = 0;
-        TreeNode* curr = root;
         while(i < n){
             if(traversal[i] == '-'){
                 d++;
                 i++;
-            }else {
-                while(st.size() > d) st.pop();
-                curr = st.top();
-                d = 0;
+            }else{
+                TreeNode* curr = el[d-1];
                 val = traversal[i++] - '0';
-                while(i < n and traversal[i] != '-') val = val * 10 + traversal[i++] - '0';
+                while(i < n and traversal[i] != '-') val = val*10 + traversal[i++] - '0';
                 TreeNode* node = new TreeNode(val);
-                if(curr -> left != NULL) {curr -> right = node;st.push(node);}
-                else {curr -> left = node;st.push(node);}
+                el[d] = node;
+                d = 0;
+                if(curr -> left) curr -> right = node;
+                else curr -> left = node;
             }
         }
         return root;
