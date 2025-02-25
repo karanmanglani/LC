@@ -72,7 +72,7 @@ public:
     vector<int> waysToFillArray(vector<vector<int>>& queries) {
         cin.tie(0) -> sync_with_stdio(0);
         auto spf = primeArr(1e4).second.first;
-        auto [fct,ifct] = pcf(1e5);
+        auto [fct,ifct] = pcf(2e4);
         vector<int> anss;
         for(auto i : queries){
             lli ans = 1;
