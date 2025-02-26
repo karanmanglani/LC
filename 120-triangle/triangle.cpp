@@ -17,14 +17,18 @@ public:
         vector<vector<int>> dp(n, vector<int> (triangle[n-1].size(),INT_MAX));
         int ans = INT_MAX;
         dp[0][0] = triangle[0][0];
+        vector<int> row(n,0);
+        vector<int> curr(n,0);
+        row[0] = triangle[0][0];
         for(int i = 1;i < n;i++){
             for(int j = 0;j <= i;j++){
-                if(j == 0) dp[i][j] = triangle[i][j] + dp[i-1][j];
-                else if(j == i) dp[i][j] = triangle[i][j] + dp[i-1][j-1];
-                else dp[i][j] = triangle[i][j] + min(dp[i-1][j] , dp[i-1][j-1]);
+                if(j == 0) curr[j] = triangle[i][j] + row[j];
+                else if(j == i) curr[j] = triangle[i][j] + row[j-1];
+                else curr[j]= triangle[i][j] + min(row[j] , row[j-1]);
             }
+            row = curr;
         }
-        for(auto i : dp[n-1]) ans = min(ans,i);
+        for(auto i : row) ans = min(ans,i);
         return ans;
     }
 };
