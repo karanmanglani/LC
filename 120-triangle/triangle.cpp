@@ -20,6 +20,7 @@ public:
         vector<int> row(n,0);
         vector<int> curr(n,0);
         row[0] = triangle[0][0];
+        curr[0] =row[0];
         for(int i = 1;i < n;i++){
             for(int j = 0;j <= i;j++){
                 if(j == 0) curr[j] = triangle[i][j] + row[j];
