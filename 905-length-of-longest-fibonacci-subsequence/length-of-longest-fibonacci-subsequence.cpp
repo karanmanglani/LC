@@ -1,23 +1,37 @@
 class Solution {
 public:
     int lenLongestFibSubseq(vector<int>& arr) {
-        cin.tie(0) -> sync_with_stdio(false);
-        unordered_map<int,int> mp;
         int n = arr.size();
-        for(int i = 0;i < n;i++) mp[arr[i]] = i;
-        vector<vector<int>> dp(n,vector<int> (n,2));
-        int ans = 0;
-        for(int i = n-2;i >= 0;i--){
-            for(int j = n-1;j > i;j--){
-                int a = arr[i], b = arr[j], c = a+b;
-                int cnt = 2;
-                if(mp.find(c) != mp.end()){
-                    cnt = 1 + dp[j][mp[c]];
-                    ans = max(ans,cnt);
+        map<pair<int,int>,int>indexes;
+
+        for(int i = 2 ;i < n;i++) {
+            int start = 0;
+            int end = i-1;
+            long long reqSum = arr[i];
+            long long sum;
+            while(start != end) {
+                sum = arr[start] + (long long)arr[end];
+                if(sum == reqSum) {
+                    indexes[{start,end}] = i;
+                    start++;
                 }
-                dp[i][j] = cnt;
+                else if(sum < reqSum) start++;
+                else end--;
             }
         }
-        return ans;
+        int count = 0;
+        int maxCount = 0;
+        for(auto &it : indexes) {
+            count = 2;
+            int i=it.first.first,j=it.first.second,k=it.second;
+            while((long long)arr[i]+arr[j] == (long long)arr[k]) {
+                count++;
+                i = j;
+                j = k;
+                k = indexes[{i,j}];
+            }
+            if(count > maxCount)maxCount = count;
+        }
+        return maxCount;
     }
 };
