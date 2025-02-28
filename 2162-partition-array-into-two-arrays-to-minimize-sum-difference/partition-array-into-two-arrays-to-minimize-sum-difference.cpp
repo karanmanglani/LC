@@ -1,6 +1,7 @@
 class Solution {
 public:
     int minimumDifference(vector<int>& nums) {
+        cin.tie(0) -> sync_with_stdio(false);
         int sum=0;
         vector<int> l,r;
         for(int i=0;i<nums.size();i++){
