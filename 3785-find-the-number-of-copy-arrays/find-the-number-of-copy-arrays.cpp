@@ -14,6 +14,7 @@ public:
             int tmn = bounds[i][0] - sum,tmx = bounds[i][1] - sum;
             mn=max(mn,tmn);
             mx = min(mx,tmx);
+            if(mx < mn) return 0;
         }
         return max(mx - mn + 1,0);
     }
