@@ -12,7 +12,7 @@ public:
     }
 
     int change(int amount, vector<int>& coins) {
-        vector<unsigned _BitInt(129)> dp(amount + 1, 0);
+        vector<unsigned _BitInt(50)> dp(amount + 1, 0);
         dp[0] = 1; 
         
         for (int coin : coins) {
