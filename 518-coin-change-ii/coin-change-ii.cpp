@@ -12,9 +12,14 @@ public:
     }
 
     int change(int amount, vector<int>& coins) {
-        cin.tie(0) -> sync_with_stdio(false);
-        int n = coins.size();
-        vector<vector<int>> dp(n,vector<int> (amount+1,-1));
-        return solve(amount, 0, coins,dp);
+        vector<unsigned _BitInt(256)> dp(amount + 1, 0);
+        dp[0] = 1; 
+        
+        for (int coin : coins) {
+            for (int i = coin; i <= amount; i++) {
+                dp[i] += dp[i - coin];
+            }
+        }
+        return dp[amount];
     }
 };
