@@ -11,7 +11,7 @@ public:
         int ans = 0, cnt = 0,ed = 0;
         for(int i = 0;i <n;i++){
             if(!vis[i]){
-                auto bfs = [&](){
+                [&](){
                     queue<int> q;
                     q.push(i);
                     vis[i] = true;
@@ -28,8 +28,8 @@ public:
                     if(cnt*(cnt-1) == ed) ans++;
                     cnt = 0;
                     ed=0;
-                };
-                bfs();
+                }();
+                
             }
         }
         return ans;
