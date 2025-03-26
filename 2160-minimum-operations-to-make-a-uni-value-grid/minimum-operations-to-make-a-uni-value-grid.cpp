@@ -1,24 +1,29 @@
 class Solution {
 public:
     int minOperations(vector<vector<int>>& grid, int x) {
-        cin.tie(0) -> sync_with_stdio(false);
-        vector<int> a;
-        for(auto i : grid){
-            for(auto j : i) a.push_back(j);
+        vector<int> nums;
+        for (auto& row : grid) {
+            for (int num : row)
+                nums.push_back(num);
         }
-        int n = a.size(),md = -1;
-        int ans = 0;
-        for(auto i : a){
-            if(md == -1) md = i % x;
-            else {
-                if(i % x != md) return -1;
-            }
+        
+        // Check feasibility: All numbers must have the same remainder modulo x.
+        int remainder = nums[0] % x;
+        for (int num : nums) {
+            if (num % x != remainder)
+                return -1;
         }
-        nth_element(a.begin(), a.begin() + n / 2, a.end());
-        md = a[n/2];
-        for(auto i : a){
-            ans += abs(i - md)/x;
+        
+        int n = nums.size();
+        // Use nth_element to get the median in average-case O(n) time.
+        nth_element(nums.begin(), nums.begin() + n / 2, nums.end());
+        int median = nums[n / 2];
+        
+        long long operations = 0;
+        for (int num : nums) {
+            operations += abs(num - median) / x;
         }
-        return ans;
+        
+        return operations;
     }
 };
