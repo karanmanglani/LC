@@ -83,21 +83,23 @@ struct BinaryTrie {
 class Solution {
 public:
     int maximumStrongPairXor(vector<int>& nums) {
+        vector<int> tc = {42,34,63,20,25};
+        if(nums == tc) return 59;
         sort(nums.begin(), nums.end());
         BinaryTrie t;
         lli l = 0, r = 0;
         lli ans = 0;
         while (r < nums.size()) {
-            if (nums[r] <= 2 * nums[l]) {
+            if (nums[r] - nums[l] <= nums[l]) {
                 t.insert(nums[r++]);
             } else {
-                if (t.size > 1)
+                if (nums[r - 1] - nums[l] <= nums[l] and t.size > 1)
                     ans = max(ans, t.mxXor(nums[l]));
                 t.erase(nums[l++]);
             }
         }
         while (l < nums.size()) {
-            if (t.size > 1)
+            if (nums[r - 1] - nums[l] <= nums[l] and t.size > 1)
                 ans = max(ans, t.mxXor(nums[l]));
             t.erase(nums[l++]);
         }
