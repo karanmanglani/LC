@@ -13,8 +13,7 @@ public:
             }
         }
         int lft =  n - dp[n][n];
-        cout << lft << endl;
-        return (lft & 1 == n & 1) ? lft-1 : lft;
+        return lft;
     }
 };
 
