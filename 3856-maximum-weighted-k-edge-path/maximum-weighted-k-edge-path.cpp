@@ -17,6 +17,7 @@ public:
                     if(dist < t) ans = max(ans,dist);
                     continue; 
                 }
+                if(dist >= t) continue;
                 for(auto j : adj[node]){
                     st.insert({dist + j.second, {no + 1, j.first}});
                 }
