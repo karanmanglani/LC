@@ -1,19 +1,15 @@
 class Solution {
 public:
     long long maximumValueSum(vector<int>& nums, int k, vector<vector<int>>& edges) {
-        long long sum = 0;
-        vector<long long> a;
-        for (int x : nums) {
-            sum += x;
-            a.push_back((x^k) - x);
+        vector<long long> dp = {0, LLONG_MIN};
+        for(auto n : nums){
+            vector<long long> curr = {dp[0] + n, dp[1] + n};
+            curr[1] = max(curr[1], dp[0] + (n ^ k));
+            curr[0] = max(curr[0], dp[1] + (n ^ k));
+            dp = curr;
         }
-        sort(a.rbegin(), a.rend());
-        
-        for (int i = 0; i < a.size() - 1; i += 2) {
-            if (a[i] + a[i + 1] <= 0) break;
-            sum += a[i] + a[i + 1];
-        }
-        return sum;
+
+        return dp[0];
     }
 };
 
