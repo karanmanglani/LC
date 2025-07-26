@@ -39,14 +39,12 @@ public:
             lli ni = ngi[i];
             lli c1 = i - pi , c2 = ni - i ;
             ans += (c1 * c2)*nums[i];
-            cout << (c1 * c2)*nums[i] << " ";
 
             pi = psi[i];
             ni = nsi[i];
             c1 = i - pi; c2 = ni - i;
             ans -= (c1 * c2)*nums[i];
 
-            cout << -1*(c1 * c2)*nums[i] << endl;
         }
         return ans;
     }
