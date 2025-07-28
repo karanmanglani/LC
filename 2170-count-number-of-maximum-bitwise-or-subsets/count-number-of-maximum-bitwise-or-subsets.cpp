@@ -3,7 +3,7 @@ class Solution {
 public:
     int countMaxOrSubsets(vector<int>& nums) {
         lli n = nums.size();
-        // dp[idx][mask]
+        // dp[idx][mask] => No of ways to get mxor with current idx = idx and mask = mask
         lli mxor = 0;
         for(auto i : nums) mxor |= i;
         vector<vector<lli>> dp(n,vector<lli> (1 << n,-1));
@@ -16,7 +16,7 @@ public:
                 if(val == mxor) return 1;
                 else return 0;
             }
-            if(dp[idx][mask] != -1) return dp[idx][mask];
+            //if(dp[idx][mask] != -1){cout << "hello" << endl; return dp[idx][mask];}
             return dp[idx][mask] = F(idx + 1, mask,F) + F(idx + 1, (mask | (1 << idx)),F);
         };
 
