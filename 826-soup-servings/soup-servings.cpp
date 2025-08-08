@@ -1,7 +1,7 @@
 class Solution {
 public:
     double soupServings(int n) {
-        if(n >= 5000) return 1;
+        if(n >= 4985) return 1;
 
         vector<vector<double>> dp(n+1, vector<double> (n+1,-1));
         auto f = [&](double a, double b, auto&&F) -> double{
