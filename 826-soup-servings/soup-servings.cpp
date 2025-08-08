@@ -1,11 +1,10 @@
-typedef double ld;
 class Solution {
 public:
     double soupServings(int n) {
         if(n >= 5000) return 1;
 
-        vector<vector<ld>> dp(n+1, vector<ld> (n+1,-1));
-        auto f = [&](ld a, ld b, auto&&F) -> ld{
+        vector<vector<double>> dp(n+1, vector<double> (n+1,-1));
+        auto f = [&](double a, double b, auto&&F) -> double{
             if(a <= 0 && b <= 0) return 0.5;
             if(b <= 0) return 0;
             if(a <= 0) return 1;
