@@ -35,8 +35,6 @@ public:
         };
 
         dfs(root,0,dfs);
-        vector<int> sortedDepths(depth.begin(),depth.end());
-        sort(sortedDepths.begin(),sortedDepths.end());
         map<int,vector<int>> depthToNodes;
         for(int i = 0;i < n;i++){
             depthToNodes[depth[i]].push_back(i);
@@ -52,14 +50,7 @@ public:
         for(auto i : queries){
             int node = i-1;
             int s = 0 , e = n-1;
-            int height = 0;
-            while(s <= e){
-                int md = s + (e-s)/2;
-                if(sortedDepths[md] < depth[node]){
-                    height = sortedDepths[md];
-                    s = md + 1;
-                }else e = md - 1;
-            }
+            int height = depth[node] - 1;
             if(depthToNodes[depth[node]].size() == 1) ans.push_back(height);
             else {
                 if(depthToNodes[depth[node]][0] == node){
