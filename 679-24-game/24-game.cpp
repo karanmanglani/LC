@@ -13,8 +13,8 @@ public:
                     flag |= (curr - bracket) == ans;
                     flag |= (curr + bracket) == ans;
                     flag |= (curr * bracket) == ans;
-                    flag |= (curr / bracket) == ans;
-                    flag |= (bracket / curr) == ans;
+                    if(bracket != 0) flag |= (curr / bracket) == ans;
+                    if(curr != 0) flag |= (bracket / curr) == ans;
                     flag |= (bracket - curr) == ans;
                     return flag;
                 }
